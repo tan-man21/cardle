@@ -35,12 +35,21 @@ function createCylinderButton(text) {
     btn.appendChild(inner);
     return btn;
   }
+
+  function clearButtons() {
+    // Clear button containers
+    colorBtns.innerHTML = "";
+    suitBtns.innerHTML = "";
+    faceNumBtns.innerHTML = "";
+}
   
 
 const getCard = async () => {
   
   // Reset score every new card
   resetScore();
+
+  clearButtons();
   
   //hides current card
   //card.style.display = "none";
@@ -57,7 +66,8 @@ const getCard = async () => {
     card.innerHTML = "";
     //Create Card Element
     const img = document.createElement("img");
-    img.src = cardData.image;
+    img.src = './icons/card.png';
+    img.style.width = '25vw';
     img.alt = `${cardData.value} of ${cardData.suit}`;
     //Display the Card in card container
     card.appendChild(img);
@@ -93,9 +103,9 @@ const getCard = async () => {
 
 
     // Clear button containers
-    colorBtns.innerHTML = "";
-    suitBtns.innerHTML = "";
-    faceNumBtns.innerHTML = "";
+    //colorBtns.innerHTML = "";
+    //suitBtns.innerHTML = "";
+    //faceNumBtns.innerHTML = "";
     
     //Create face or number buttons
     const numberBtn = createCylinderButton('N');

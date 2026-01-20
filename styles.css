@@ -38,34 +38,9 @@
   }
   
   body{
-            background-image: -webkit-linear-gradient(top, #466d4c, #1b6224);
+            background-image: -webkit-linear-gradient(top, #eaeaea, #dbdbdb);
               background-image: linear-gradient(top, #466d4c, #1b6224);
   }
-  
-  
-          .heart:after{
-              content: "♥";
-              left: 20px;
-              top: 14px;
-          }
-  
-          .flower:after{
-              content: "♠";
-              left: 20px;
-              top: 13px;
-          }
-  
-          .tick:after{
-              content: "♣";
-              left:20px;
-              top:13px;
-          }
-  
-          .cross:after{
-              content: "♦";
-              left: 20px;
-              top: 12px;
-          }
   
   .red:after {
     left: 16px;
