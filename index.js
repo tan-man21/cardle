@@ -24,15 +24,11 @@ const resetScore = () => {
   score.textContent = currentScore
 }
 
-function createCylinderButton(text) {
-    const btn = document.createElement("a");
+function createButton(text) {
+    const btn = document.createElement("button");
     btn.classList.add("hand-btn", "fade-in");    
-  
-    const inner = document.createElement("span");
-    inner.classList.add("inner-face");
-    inner.textContent = text;
-  
-    btn.appendChild(inner);
+    btn.textContent = text;
+
     return btn;
   }
 
@@ -47,6 +43,23 @@ function getRandomCardIndex() {
   return Math.floor(Math.random() * 52);
 }
 
+//flip card
+function flipCard(cardElement, options = {}) {
+  const {
+    duration = 750,
+    force = null // true = flip, false = unflip, null = toggle
+  } = options;
+
+  cardElement.style.transition = `transform ${duration}ms ease`;
+
+  if (force === true) {
+    cardElement.classList.add("flipped");
+  } else if (force === false) {
+    cardElement.classList.remove("flipped");
+  } else {
+    cardElement.classList.toggle("flipped");
+  }
+}
   
 
 const getCard = async () => {
@@ -99,6 +112,8 @@ const getCard = async () => {
 
     card.append(backFace, frontFace);
 
+    flipCard(card, { force: false });
+
     
     //Checks color of current card
     if(cardData.suit === 'hearts' || cardData.suit === 'diamonds') {
@@ -136,32 +151,32 @@ const getCard = async () => {
     //faceNumBtns.innerHTML = "";
     
     //Create face or number buttons
-    const numberBtn = createCylinderButton('N');
+    const numberBtn = createButton('number');
     //numberBtn.textContent = "Number";
     numberBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
-    const faceBtn = createCylinderButton('F');
+    const faceBtn = createButton('face');
     //faceBtn.textContent = "Face";
     faceBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
 
 
     
     //Create suit buttons
-    const diamondSuit = createCylinderButton('D');
+    const diamondSuit = createButton('diamond');
     diamondSuit.className = "hand-btn red"
-    const heartSuit = createCylinderButton('H');
+    const heartSuit = createButton('heart');
     heartSuit.className = "hand-btn red"    
-    const spadeSuit = createCylinderButton('S');
+    const spadeSuit = createButton('spade');
     spadeSuit.className = "hand-btn black"
-    const clubSuit = createCylinderButton('C');
+    const clubSuit = createButton('club');
     clubSuit.className = "hand-btn black"
     
     //Create color buttons
-    const redBtn = createCylinderButton();
+    const redBtn = createButton('red');
     //redBtn.textContent = "Red"
-    redBtn.className = "hand-btn red"
-    const blackBtn = createCylinderButton();
+    redBtn.className = "red"
+    const blackBtn = createButton('black');
     //blackBtn.textContent = "Black"
-    blackBtn.className = "hand-btn black"
+    blackBtn.className = "black"
     
     //listens for a click on red
     redBtn.addEventListener("click", () => {
@@ -185,7 +200,7 @@ const getCard = async () => {
         resetScore();
         
         //shows card
-        card.style.display = "block";
+        flipCard(card, { force: true });
       }
 
   })
