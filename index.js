@@ -70,14 +70,31 @@ const getCard = async () => {
     
     const cardData = data.cardDeck[getRandomCardIndex()];
     
-    card.innerHTML = "";
+    //card.innerHTML = "";
     //Create Card Element
-    const img = document.createElement("img");
-    img.src = './icons/card.png';
-    img.style.width = '25vw';
-    img.alt = `${cardData.value} of ${cardData.suit}`;
-    //Display the Card in card container
-    card.appendChild(img);
+    // const backImg = document.createElement("img");
+    // backImg.src = './icons/card.png';
+    // backImg.style.width = '25vw';
+    // backImg.className = 'back';
+    // //backImg.alt = `${cardData.value} of ${cardData.suit}`;
+    // //Display the Card in card container
+    // card.appendChild(backImg);
+
+    card.innerHTML = ""; // clear first if reusing
+
+    const backFace = document.createElement("div");
+    backFace.className = "card-face back";
+
+    const backImg = document.createElement("img");
+    backImg.src = "./icons/card.png";
+    backFace.appendChild(backImg);
+
+    const frontFace = document.createElement("div");
+    frontFace.className = "card-face front";
+    frontFace.textContent = "FRONT";
+
+    card.append(backFace, frontFace);
+
     
     //Checks color of current card
     if(cardData.suit === 'hearts' || cardData.suit === 'diamonds') {
