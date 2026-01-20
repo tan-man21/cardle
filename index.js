@@ -24,6 +24,19 @@ const resetScore = () => {
   score.textContent = currentScore
 }
 
+function createCylinderButton(text) {
+    const btn = document.createElement("a");
+    btn.classList.add("hand-btn", "fade-in");    
+  
+    const inner = document.createElement("span");
+    inner.classList.add("inner-face");
+    inner.textContent = text;
+  
+    btn.appendChild(inner);
+    return btn;
+  }
+  
+
 const getCard = async () => {
   
   // Reset score every new card
@@ -85,36 +98,32 @@ const getCard = async () => {
     faceNumBtns.innerHTML = "";
     
     //Create face or number buttons
-    const numberBtn = document.createElement("a");
+    const numberBtn = createCylinderButton('N');
     //numberBtn.textContent = "Number";
-    numberBtn.className = `hand-btn fade-in ${redCard ? 'number-red' : 'number-black'}`;
-    const faceBtn = document.createElement("a");
+    numberBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
+    const faceBtn = createCylinderButton('F');
     //faceBtn.textContent = "Face";
-    faceBtn.className = `hand-btn fade-in ${redCard ? 'face-red' : 'face-black'}`;
+    faceBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
 
 
     
     //Create suit buttons
-    const diamondSuit = document.createElement("a");
-    //diamondSuit.textContent = "Diamond"
-    diamondSuit.className = "hand-btn cross fade-in"
-    const heartSuit = document.createElement("a");
-    //heartSuit.textContent = "Heart"
-    heartSuit.className = "hand-btn heart fade-in"    
-    const spadeSuit = document.createElement("a");
-    //spadeSuit.textContent = "Spade"
-    spadeSuit.className = "hand-btn flower fade-in"
-    const clubSuit = document.createElement("a");
-    //clubSuit.textContent = "Club"
-    clubSuit.className = "hand-btn tick fade-in"
+    const diamondSuit = createCylinderButton('D');
+    diamondSuit.className = "hand-btn red"
+    const heartSuit = createCylinderButton('H');
+    heartSuit.className = "hand-btn red"    
+    const spadeSuit = createCylinderButton('S');
+    spadeSuit.className = "hand-btn black"
+    const clubSuit = createCylinderButton('C');
+    clubSuit.className = "hand-btn black"
     
     //Create color buttons
-    const redBtn = document.createElement("a");
+    const redBtn = createCylinderButton();
     //redBtn.textContent = "Red"
-    redBtn.className = "hand-btn fade-in red"
-    const blackBtn = document.createElement("a");
+    redBtn.className = "hand-btn red"
+    const blackBtn = createCylinderButton();
     //blackBtn.textContent = "Black"
-    blackBtn.className = "hand-btn fade-in black"
+    blackBtn.className = "hand-btn black"
     
     //listens for a click on red
     redBtn.addEventListener("click", () => {
