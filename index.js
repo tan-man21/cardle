@@ -91,7 +91,11 @@ const getCard = async () => {
 
     const frontFace = document.createElement("div");
     frontFace.className = "card-face front";
-    frontFace.textContent = "FRONT";
+    
+    const frontImg = document.createElement("img");
+    frontImg.src = "./icons/item-0.png";
+    frontFace.appendChild(frontImg);
+    
 
     card.append(backFace, frontFace);
 

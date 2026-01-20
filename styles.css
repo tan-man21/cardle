@@ -201,6 +201,8 @@
     justify-content: center;
     align-items: center;
     min-height: 50vh;
+    max-width: 50%;
+    margin: auto;
   }
   
   .card {
@@ -212,7 +214,7 @@
     cursor: pointer;
   }
   
-  .card-container:active .card {
+  .card-container:hover .card {
     transform: rotateY(180deg);
   }
   
@@ -227,12 +229,7 @@
     justify-content: center;
   }
   
-  .back {
-    /* background: #191f1f; */
-  }
-  
   .front {
-    background: #cb0323;
     transform: rotateY(180deg);
   }
   
