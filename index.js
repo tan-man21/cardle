@@ -42,6 +42,11 @@ function createCylinderButton(text) {
     suitBtns.innerHTML = "";
     faceNumBtns.innerHTML = "";
 }
+
+function getRandomCardIndex() {
+  return Math.floor(Math.random() * 52);
+}
+
   
 
 const getCard = async () => {
@@ -57,11 +62,13 @@ const getCard = async () => {
   colorBtns.style.display = "flex";
   
   try {
-    const res = await fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=1")
+    //const res = await fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=1")
     
+    const res = await fetch('./cardDeck.json')
+
     const data = await res.json();
     
-    const cardData = data.cards[0];
+    const cardData = data.cardDeck[getRandomCardIndex()];
     
     card.innerHTML = "";
     //Create Card Element
@@ -73,7 +80,7 @@ const getCard = async () => {
     card.appendChild(img);
     
     //Checks color of current card
-    if(cardData.suit === 'HEARTS' || cardData.suit === 'DIAMONDS') {
+    if(cardData.suit === 'hearts' || cardData.suit === 'diamonds') {
       redCard = true;
       blackCard = false;
     } else {
@@ -83,16 +90,16 @@ const getCard = async () => {
     
     // Determine suit
     switch (cardData.suit) {
-      case "HEARTS":
+      case "hearts":
         heart = true;
         break;
-      case "DIAMONDS":
+      case "diamonds":
         diamond = true;
         break;
-      case "SPADES":
+      case "spades":
         spade = true;
         break;
-      case "CLUBS":
+      case "clubs":
         club = true;
         break;
     }
