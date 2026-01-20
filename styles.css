@@ -1,0 +1,209 @@
+.title {
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 70%;
+    margin: auto;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0px 5px;
+  }
+  
+  .score-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .box {
+    text-align: center;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0px); }
+  }
+  
+  a {
+    cursor: pointer;
+  }
+  
+  html, body{
+    min-height:100%;
+  }
+  
+  body{
+            background-image: -webkit-linear-gradient(top, #466d4c, #1b6224);
+              background-image: linear-gradient(top, #466d4c, #1b6224);
+  }
+  
+  
+          .heart:after{
+              content: "♥";
+              left: 20px;
+              top: 14px;
+          }
+  
+          .flower:after{
+              content: "♠";
+              left: 20px;
+              top: 13px;
+          }
+  
+          .tick:after{
+              content: "♣";
+              left:20px;
+              top:13px;
+          }
+  
+          .cross:after{
+              content: "♦";
+              left: 20px;
+              top: 12px;
+          }
+  
+  .red:after {
+    content: "◻";
+    left: 16px;
+    top: 7px;
+    color:#eb2f2f;
+  }
+  .black:after {
+    content: "◻";
+    left: 16px;
+    top: 7px;
+    color:#000000;
+  }
+  
+  .face-red:after {
+    content: "🃟";
+  }
+  .number-red:after {
+    content: "🂲";
+    color: #eb2f2f;
+    left: 15px;
+    top: 7px;
+  }
+  .number-black:after {
+    content: "🂢";
+    color: #000000;
+    left: 15px;
+    top: 7px;
+  }
+  
+          .button:hover{
+              background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
+              background-image: linear-gradient(top, #fff, #f4f1ee);
+              color:#0088cc;
+          }
+  
+          .heart:hover:after{
+              color:#eb2f2f;
+              text-shadow:0px 0px 6px #eb2f2f;
+          }
+  
+          .flower:hover:after{
+              color:#000000;
+              text-shadow:0px 0px 6px #000000;
+          }
+  
+          .tick:hover:after{
+              color:#000000;
+              text-shadow:0px 0px 6px #000000;
+          }
+  
+          .cross:hover:after{
+              color:#eb2f2f;
+              text-shadow:0px 0px 6px #eb2f2f;
+          }
+  
+  .red {
+    /* Outer blue ring */
+    background: radial-gradient(
+      circle at center,
+      #f2f2f2 45%,
+      #ed0000 46%,
+      #d50000 70%
+    );
+  }
+  
+  .black {
+    /* Outer blue ring */
+    background: radial-gradient(
+      circle at center,
+      #f2f2f2 45%,
+      #333333 46%,
+      #000000 70%
+    );
+  }
+  .red:hover:after {
+    text-shadow:0px 0px 6px #eb2f2f;
+  }
+  .black:hover:after {
+    text-shadow:0px 0px 6px #000000;
+  }
+          
+  
+          .button:active{
+              background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
+              background-image: linear-gradient(top, #efedec, #f7f4f4);
+              box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+          }
+  
+          .button:active:after{
+              color:#dbd2d2;
+              text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+          }
+  
+  .colorBtns,
+  .suitBtns,
+  .faceNumBtns{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .hand-btn {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+  
+    box-shadow:
+      0 12px 20px rgba(0, 0, 0, 0.35),
+      inset 0 4px 6px rgba(255, 255, 255, 0.3),
+      inset 0 -6px 8px rgba(0, 0, 0, 0.25);
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  
+  /* Icon */
+  .hand-icon {
+    font-size: 42px;
+    color: #2f3a5f;
+    user-select: none;
+  }
+  
+  /* Hover */
+  .hand-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Pressed */
+  .hand-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 6px 10px rgba(0, 0, 0, 0.3),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.35);
+  }  
