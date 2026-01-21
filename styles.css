@@ -42,17 +42,6 @@
               background-image: linear-gradient(top, #466d4c, #1b6224);
   }
   
-  .red:after {
-    left: 16px;
-    top: 7px;
-    color:#eb2f2f;
-  }
-  .black:after {
-    left: 16px;
-    top: 7px;
-    color:#000000;
-  }
-  
   .face-red:after {
     content: "🃟";
   }
@@ -68,44 +57,6 @@
     left: 15px;
     top: 7px;
   }
-  
-          .button:hover{
-              background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
-              background-image: linear-gradient(top, #fff, #f4f1ee);
-              color:#0088cc;
-          }
-  
-          .heart:hover:after{
-              color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f;
-          }
-  
-          .flower:hover:after{
-              color:#000000;
-              text-shadow:0px 0px 6px #000000;
-          }
-  
-          .tick:hover:after{
-              color:#000000;
-              text-shadow:0px 0px 6px #000000;
-          }
-  
-          .cross:hover:after{
-              color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f;
-          }
-          
-  
-          .button:active{
-              background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
-              background-image: linear-gradient(top, #efedec, #f7f4f4);
-              box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
-          }
-  
-          .button:active:after{
-              color:#dbd2d2;
-              text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
-          }
   
   .colorBtns,
   .suitBtns,
@@ -126,18 +77,38 @@ button {
   font-size: 18px;
   letter-spacing: 1px;
   text-decoration: none;
-  color: #725AC1;
+  /* color: #725AC1; */
   background: transparent;
   cursor: pointer;
   transition: ease-out 0.5s;
-  border: 2px solid #725AC1;
+  /* border: 2px solid #725AC1; */
   border-radius: 10px;
-  box-shadow: inset 0 0 0 0 #725AC1;
+  /* box-shadow: inset 0 0 0 0 #725AC1; */
+}
+
+.red {
+  color: #eb2f2f;
+  border: 2px solid #eb2f2f;
+  box-shadow: inset 0 0 0 0 #eb2f2f;
+}
+.red:hover,.red:active {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #eb2f2f;
+}
+
+.black {
+  color: #191919;
+  border: 2px solid #191919;
+  box-shadow: inset 0 0 0 0 #191919;
+}
+.black:hover,.red:active {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #191919;
 }
 
 button:hover {
   color: white;
-  box-shadow: inset 0 -100px 0 0 #725AC1;
+  /* box-shadow: inset 0 -100px 0 0 #725AC1; */
 }
 
 button:active {

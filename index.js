@@ -26,7 +26,7 @@ const resetScore = () => {
 
 function createButton(text) {
     const btn = document.createElement("button");
-    btn.classList.add("hand-btn", "fade-in");    
+    btn.classList.add("button", "fade-in");    
     btn.textContent = text;
 
     return btn;
@@ -153,22 +153,22 @@ const getCard = async () => {
     //Create face or number buttons
     const numberBtn = createButton('number');
     //numberBtn.textContent = "Number";
-    numberBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
+    numberBtn.className = `${redCard ? 'red' : 'black'}`;
     const faceBtn = createButton('face');
     //faceBtn.textContent = "Face";
-    faceBtn.className = `hand-btn ${redCard ? 'red' : 'black'}`;
+    faceBtn.className = `${redCard ? 'red' : 'black'}`;
 
 
     
     //Create suit buttons
     const diamondSuit = createButton('diamond');
-    diamondSuit.className = "hand-btn red"
+    diamondSuit.className = "red"
     const heartSuit = createButton('heart');
-    heartSuit.className = "hand-btn red"    
+    heartSuit.className = "red"    
     const spadeSuit = createButton('spade');
-    spadeSuit.className = "hand-btn black"
+    spadeSuit.className = "black"
     const clubSuit = createButton('club');
-    clubSuit.className = "hand-btn black"
+    clubSuit.className = "black"
     
     //Create color buttons
     const redBtn = createButton('red');
@@ -226,7 +226,7 @@ const getCard = async () => {
       resetScore();
       
       //shows card
-      card.style.display = "block";
+      flipCard(card, { force: true });
     }
 
   })
@@ -259,7 +259,7 @@ const displayFNBtns = () => {
       resetScore();
       
       //shows card
-      card.style.display = "block";
+      flipCard(card, { force: true });
     } }) 
     heartSuit.addEventListener("click", () => {             if(heart) { 
       alert("Correct!")
@@ -278,7 +278,7 @@ const displayFNBtns = () => {
       resetScore();
       
       //shows card
-      card.style.display = "block";
+      flipCard(card, { force: true });
     } }) 
     spadeSuit.addEventListener("click", () => {             if(spade) { 
       alert("Correct!")
@@ -297,7 +297,7 @@ const displayFNBtns = () => {
       resetScore();
       
       //shows card
-      card.style.display = "block";
+      flipCard(card, { force: true });
     } }) 
     clubSuit.addEventListener("click", () => { 
       if(club) { 
@@ -317,7 +317,7 @@ const displayFNBtns = () => {
       resetScore();
         
       //shows card
-      card.style.display = "block";
+      flipCard(card, { force: true });
       } })
     
     numberBtn.addEventListener("click", () => {
@@ -329,6 +329,8 @@ const displayFNBtns = () => {
         alert("Wrong!");
         
         resetScore();
+
+        flipCard(card, { force: true });
       }
    });
 
@@ -341,6 +343,8 @@ faceBtn.addEventListener("click", () => {
         alert("Wrong!");
         
         resetScore();
+
+        flipCard(card, { force: true });
       }
 });
 
