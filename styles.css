@@ -160,3 +160,24 @@ button:active {
     border-radius: inherit;
   }
   
+  #drawCard {
+    border: 2px solid #24b4fb;
+    background-color: #24b4fb;
+    border-radius: 0.9em;
+    cursor: pointer;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+  }
+  
+  #drawCard span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: 400;
+  }
+  
+  #drawCard:hover {
+    background-color: #0071e2;
+  }
