@@ -1,468 +1,273 @@
 import { createButton } from "./functions.js";
 
-const card = document.querySelector('.card')
-const score = document.querySelector('.score')
-const button = document.querySelector('#drawCard')
-const colorBtns = document.querySelector('.colorBtns')
-const suitBtns = document.querySelector('.suitBtns')
-const faceNumBtns = document.querySelector('.faceNumBtns')
-const faceOrNumBtns = document.querySelector('.faceOrNumBtns')
+const card = document.querySelector('.card');
+const score = document.querySelector('.score');
+const button = document.querySelector('#drawCard');
+const colorBtns = document.querySelector('.colorBtns');
+const suitBtns = document.querySelector('.suitBtns');
+const faceNumBtns = document.querySelector('.faceNumBtns');
+const faceOrNumBtns = document.querySelector('.faceOrNumBtns');
+const higherLowerBtns = document.querySelector('.higherLowerBtns');
 
-let redCard;
-let blackCard;
-let diamond = false;
-let heart = false;
-let spade= false;
-let club = false;
+let redCard, blackCard;
+let diamond, heart, spade, club;
 let currentScore = 0;
-let higher = false;
-let lower = false;
+let numberCard, faceCard;
+let cardData, correctCard;
 let roundResolved = false;
 
-//add score function
-const addScore = () => {
-  currentScore += 10;
-  score.textContent = currentScore;
-}
-//reset score function
-const resetScore = () => {
-  currentScore = 0;
-  score.textContent = currentScore
-}
+// Face/number arrays
+const faceValues = ["ace", "king", "queen", "jack"];
+const lowerValues = ["2", "3", "4", "5"];
+const higherValues = ["6", "7", "8", "9", "10"];
 
-// function createButton(text) {
-//     const btn = document.createElement("button");
-//     btn.classList.add("button", "fade-in");    
-//     btn.textContent = text;
+// Score functions
+const addScore = () => { currentScore += 10; score.textContent = currentScore; }
+const resetScore = () => { currentScore = 0; score.textContent = currentScore; }
 
-//     return btn;
-//   }
-
-  function clearButtons() {
-    // Clear button containers
-    colorBtns.innerHTML = "";
-    suitBtns.innerHTML = "";
-    faceNumBtns.innerHTML = "";
-    faceOrNumBtns.innerHTML = "";
+// Clear all button containers
+function clearButtons() {
+  colorBtns.innerHTML = "";
+  suitBtns.innerHTML = "";
+  faceNumBtns.innerHTML = "";
+  faceOrNumBtns.innerHTML = "";
+  higherLowerBtns.innerHTML = "";
 }
 
+// Flip card
+function flipCard(cardElement, { duration = 750, force = null } = {}) {
+  cardElement.style.transition = `transform ${duration}ms ease`;
+  if (force === true) cardElement.classList.add("flipped");
+  else if (force === false) cardElement.classList.remove("flipped");
+  else cardElement.classList.toggle("flipped");
+}
+
+// Get random card index
 function getRandomCardIndex() {
   return Math.floor(Math.random() * 52);
 }
 
-//flip card
-function flipCard(cardElement, options = {}) {
-  const {
-    duration = 750,
-    force = null // true = flip, false = unflip, null = toggle
-  } = options;
+// Display color buttons
+function displayColorButtons() {
+  colorBtns.innerHTML = "";
+  roundResolved = false;
 
-  cardElement.style.transition = `transform ${duration}ms ease`;
+  const redBtn = createButton('red');
+  const blackBtn = createButton('black');
+  redBtn.classList.add("red");
+  blackBtn.classList.add("black");
 
-  if (force === true) {
-    cardElement.classList.add("flipped");
-  } else if (force === false) {
-    cardElement.classList.remove("flipped");
-  } else {
-    cardElement.classList.toggle("flipped");
-  }
-}
-  
+  redBtn.addEventListener("click", () => handleColorChoice(true));
+  blackBtn.addEventListener("click", () => handleColorChoice(false));
 
-const getCard = async () => {
-  
-  // Reset score every new card
-  resetScore();
-
-  clearButtons();
-  
-  //hides current card
-  //card.style.display = "none";
-  
+  colorBtns.append(redBtn, blackBtn);
   colorBtns.style.display = "flex";
-  
-  try {
-    //const res = await fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=1")
-    
-    const res = await fetch('./cardDeck.json')
-
-    const data = await res.json();
-    
-    const cardData = data.cardDeck[getRandomCardIndex()];
-    
-    //card.innerHTML = "";
-    //Create Card Element
-    // const backImg = document.createElement("img");
-    // backImg.src = './icons/card.png';
-    // backImg.style.width = '25vw';
-    // backImg.className = 'back';
-    // //backImg.alt = `${cardData.value} of ${cardData.suit}`;
-    // //Display the Card in card container
-    // card.appendChild(backImg);
-
-    card.innerHTML = ""; // clear first if reusing
-
-    const backFace = document.createElement("div");
-    backFace.className = "card-face back";
-
-    const backImg = document.createElement("img");
-    backImg.src = "./icons/card.png";
-    backImg.ariaValueText = `${cardData.value} of ${cardData.suit}`
-    backFace.appendChild(backImg);
-
-    const frontFace = document.createElement("div");
-    frontFace.className = "card-face front";
-    
-    const frontImg = document.createElement("img");
-    frontImg.src = "./icons/item-0.png";
-    frontFace.appendChild(frontImg);
-    
-
-    card.append(backFace, frontFace);
-
-    flipCard(card, { force: false });
-
-    
-    //Checks color of current card
-    if(cardData.suit === 'hearts' || cardData.suit === 'diamonds') {
-      redCard = true;
-      blackCard = false;
-    } else {
-      redCard = false;
-      blackCard = true;
-    }
-    
-    // Determine suit
-    switch (cardData.suit) {
-      case "hearts":
-        heart = true;
-        break;
-      case "diamonds":
-        diamond = true;
-        break;
-      case "spades":
-        spade = true;
-        break;
-      case "clubs":
-        club = true;
-        break;
-    }
-
-    if(cardData.value <= 5) {
-      lower = true;
-    } else {
-      higher = true;
-    }
-
-    const correctCard = `${cardData.value} of ${cardData.suit}`
-    
-    // Determine face or number
-    let numberCard = !isNaN(Number(cardData.value));
-    let faceCard = !numberCard;
-
-
-    // Clear button containers
-    //colorBtns.innerHTML = "";
-    //suitBtns.innerHTML = "";
-    //faceNumBtns.innerHTML = "";
-
-    //Face Values
-    const faceValues = ["ace", "king", "queen", "jack"]
-    
-
-    //Create higher or lower buttons
-    const higherBtn = createButton('6 or higher');
-    higherBtn.classList.add(redCard ? "red" : "black", "fade-in");
-    const lowerBtn = createButton('5 or lower');
-    lowerBtn.classList.add(redCard ? "red" : "black", "fade-in");
-    
-    //Create face or number buttons
-    const numberBtn = createButton('number');
-    //numberBtn.textContent = "Number";
-    numberBtn.className = `${redCard ? 'red' : 'black'}`;
-    const faceBtn = createButton('face');
-    //faceBtn.textContent = "Face";
-    faceBtn.className = `${redCard ? 'red' : 'black'}`;
-
-
-    
-    //Create suit buttons
-    const diamondSuit = createButton('diamond');
-    diamondSuit.className = "red"
-    const heartSuit = createButton('heart');
-    heartSuit.className = "red"    
-    const spadeSuit = createButton('spade');
-    spadeSuit.className = "black"
-    const clubSuit = createButton('club');
-    clubSuit.className = "black"
-    
-    //Create color buttons
-    const redBtn = createButton('red');
-    //redBtn.textContent = "Red"
-    redBtn.className = "red"
-    const blackBtn = createButton('black');
-    //blackBtn.textContent = "Black"
-    blackBtn.className = "black"
-    
-    //listens for a click on red
-    redBtn.addEventListener("click", () => {
-      if (redCard) {
-        alert("Correct!")
-        
-        //add score
-        addScore();
-        
-        //Display if correct color selected
-        suitBtns.innerHTML = "";
-        suitBtns.appendChild(diamondSuit)
-        suitBtns.appendChild(heartSuit)
-        
-        //removes color buttons
-        colorBtns.style.display = "none";
-      } else {
-        alert("Wrong!")
-        
-        //reset score
-        resetScore();
-        
-        //shows card
-        flipCard(card, { force: true });
-      }
-
-  })
-  //listens for a click on black
-  blackBtn.addEventListener("click", () => {
-    if (blackCard) {
-      alert("Correct!")
-     
-      //add score
-      addScore();
-      
-      //Display if correct color selected
-      suitBtns.innerHTML = "";
-      suitBtns.appendChild(spadeSuit)
-      suitBtns.appendChild(clubSuit)
-      
-      //removes color buttons
-      colorBtns.style.display = "none";
-    } else {
-      alert("Wrong!")
-      
-      //reset score
-      resetScore();
-      
-      //shows card
-      flipCard(card, { force: true });
-    }
-
-  })
-    
-    colorBtns.appendChild(redBtn)
-    colorBtns.appendChild(blackBtn)
-    
-    //display face or number buttons
-const displayFNBtns = () => {
-  faceNumBtns.innerHTML = "";
-  faceNumBtns.appendChild(numberBtn)
-  faceNumBtns.appendChild(faceBtn)
 }
 
-const displayFaceBtns = () => {
-  faceOrNumBtns.innerHTML = "";
-
-  for (let i = 0; i < faceValues.length; i++) {
-    const faceCardBtn = createButton(faceValues[i]);
-    faceCardBtn.classList.add(redCard ? "red" : "black", faceValues[i], "fade-in");
-    faceOrNumBtns.appendChild(faceCardBtn)
+// Handle color choice
+function handleColorChoice(isRed) {
+  if ((isRed && redCard) || (!isRed && blackCard)) {
+    alert("Correct!");
+    addScore();
+    colorBtns.style.display = "none";
+    displaySuitButtons();
+  } else {
+    alert("Wrong!");
+    resetScore();
+    flipCard(card, { force: true });
   }
 }
 
-const displayNumberBtns = () => {
-  faceOrNumBtns.innerHTML = "";
-  faceOrNumBtns.appendChild(higherBtn)
-  faceOrNumBtns.appendChild(lowerBtn)
+// Display suit buttons dynamically
+function displaySuitButtons() {
+  suitBtns.innerHTML = "";
+  roundResolved = false;
+
+  const suits = [];
+  if (redCard) {
+    suits.push({ name: "diamond", correct: diamond });
+    suits.push({ name: "heart", correct: heart });
+  } else {
+    suits.push({ name: "spade", correct: spade });
+    suits.push({ name: "club", correct: club });
+  }
+
+  suits.forEach(s => {
+    const btn = createButton(s.name);
+    btn.classList.add(redCard ? "red" : "black");
+    btn.dataset.correct = s.correct;
+    btn.addEventListener("click", () => handleSuitChoice(s.correct));
+    suitBtns.appendChild(btn);
+  });
+
+  suitBtns.style.display = "flex";
 }
-    
-    // Suit button listeners
-    diamondSuit.addEventListener("click", () => {           if(diamond) { 
-      alert("Correct!")
-      
-      //add score
-      addScore();
-      
-      //call face or number function
-      displayFNBtns();
-      
-      suitBtns.style.display = "none";
-    } else { 
-      alert("Wrong!") 
-      
-      //reset score
-      resetScore();
-      
-      //shows card
-      flipCard(card, { force: true });
-    } }) 
-    heartSuit.addEventListener("click", () => {             if(heart) { 
-      alert("Correct!")
-      
-      //add score
-      addScore();
-      
-      //call face or number function
-      displayFNBtns();
-      
-      suitBtns.style.display = "none";
-    } else { 
-      alert("Wrong!")
-      
-      //reset score
-      resetScore();
-      
-      //shows card
-      flipCard(card, { force: true });
-    } }) 
-    spadeSuit.addEventListener("click", () => {             if(spade) { 
-      alert("Correct!")
-      
-      //add score
-      addScore();
-      
-      //call face or number function
-      displayFNBtns();
-      
-      suitBtns.style.display = "none";
-    } else { 
-      alert("Wrong!")
-      
-      //reset score
-      resetScore();
-      
-      //shows card
-      flipCard(card, { force: true });
-    } }) 
-    clubSuit.addEventListener("click", () => { 
-      if(club) { 
-        alert("Correct!")
-        
-      //add score
-      addScore();
-        
-      //call face or number function
-      displayFNBtns();
-        
-      suitBtns.style.display = "none";
-      } else { 
-        alert("Wrong!")
-        
-      //reset score
-      resetScore();
-        
-      //shows card
-      flipCard(card, { force: true });
-      } })
-    
-    numberBtn.addEventListener("click", () => {
-      if(numberCard){ 
-        alert("Correct!");
-        
-        addScore();
 
-        faceNumBtns.style.display = "none";
+// Handle suit choice
+function handleSuitChoice(isCorrect) {
+  if (isCorrect) {
+    alert("Correct!");
+    addScore();
+    suitBtns.style.display = "none";
+    displayFaceNumButtons();
+  } else {
+    alert("Wrong!");
+    resetScore();
+    flipCard(card, { force: true });
+  }
+}
 
-        displayNumberBtns();
-      } else {
-        alert("Wrong!");
-        
-        resetScore();
+// Display face/number choice buttons
+function displayFaceNumButtons() {
+  faceNumBtns.innerHTML = "";
+  roundResolved = false;
 
-        flipCard(card, { force: true });
-      }
-   });
+  const numberBtn = createButton('number');
+  const faceBtn = createButton('face');
 
-faceBtn.addEventListener("click", () => {
-  if(faceCard){ 
-        alert("Correct!");
-        
-        addScore();
+  numberBtn.classList.add(redCard ? "red" : "black");
+  faceBtn.classList.add(redCard ? "red" : "black");
 
-        faceNumBtns.style.display = "none";
+  numberBtn.addEventListener("click", () => handleFaceNumChoice(false));
+  faceBtn.addEventListener("click", () => handleFaceNumChoice(true));
 
-        displayFaceBtns();
-      } else {
-        alert("Wrong!");
-        
-        resetScore();
+  faceNumBtns.append(faceBtn, numberBtn);
+  faceNumBtns.style.display = "flex";
+}
 
-        flipCard(card, { force: true });
-      }
-});
+// Handle face/number choice
+function handleFaceNumChoice(choseFace) {
+  if ((choseFace && faceCard) || (!choseFace && numberCard)) {
+    alert("Correct!");
+    addScore();
+    faceNumBtns.style.display = "none";
 
-higherBtn.addEventListener("click", () => {
-  if(higher){ 
-        alert("Correct!");
-        
-        addScore();
+    if (faceCard) displayFaceButtons();
+    else displayNumberButtons();
+  } else {
+    alert("Wrong!");
+    resetScore();
+    flipCard(card, { force: true });
+  }
+}
 
-        faceOrNumBtns.style.display = "none";
-      } else {
-        alert("Wrong!");
-        
-        resetScore();
+// Display face buttons dynamically
+function displayFaceButtons() {
+  faceOrNumBtns.innerHTML = "";
+  roundResolved = false;
 
-        flipCard(card, { force: true });
-      }
-});
+  faceValues.forEach(face => {
+    const btn = createButton(face);
+    btn.classList.add(redCard ? "red" : "black", "fade-in");
+    btn.dataset.value = face;
+    faceOrNumBtns.appendChild(btn);
+  });
+}
 
-lowerBtn.addEventListener("click", () => {
-  if(lower){ 
-        alert("Correct!");
-        
-        addScore();
+// Display number buttons dynamically (higher/lower)
+function displayNumberButtons() {
+  faceOrNumBtns.innerHTML = "";
+  higherLowerBtns.innerHTML = "";
+  roundResolved = false;
 
-        faceOrNumBtns.style.display = "none";
-      } else {
-        alert("Wrong!");
-        
-        resetScore();
+  const isLower = lowerValues.includes(cardData.value);
+  const valuesToShow = isLower ? lowerValues : higherValues;
 
-        flipCard(card, { force: true });
-      }
-});
+  valuesToShow.forEach(val => {
+    const btn = createButton(val);
+    btn.classList.add(redCard ? "red" : "black", "fade-in");
+    btn.dataset.value = val;
+    higherLowerBtns.appendChild(btn);
+  });
+}
 
+// Delegated listener for face buttons
 faceOrNumBtns.addEventListener("click", (e) => {
-  if (roundResolved) return;   // 🔒 stop second execution
-  roundResolved = true;
-
   const btn = e.target.closest("button");
-  if (!btn) return;
+  if (!btn || roundResolved) return;
+  if (!faceValues.includes(btn.dataset.value)) return;
 
-  const faceMap = {
-    A: "ace",
-    K: "king",
-    Q: "queen",
-    J: "jack",
-  };
-
+  roundResolved = true;
+  const faceMap = { A: "ace", K: "king", Q: "queen", J: "jack" };
   const correctFace = faceMap[correctCard[0]];
 
   if (btn.dataset.value === correctFace) {
     alert("You Won!");
+    addScore();
   } else {
     alert("Wrong!");
+    resetScore();
+    flipCard(card, { force: true });
+  }
+});
+
+// Delegated listener for number buttons
+higherLowerBtns.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn || roundResolved) return;
+
+  roundResolved = true;
+
+  if (btn.dataset.value === String(cardData.value)) {
+    alert("You Won!");
+    addScore();
+  } else {
+    alert("Wrong!");
+    resetScore();
     flipCard(card, { force: true });
   }
 });
 
 
-    
-  } catch(e) {
-    console.error(e)
+// Main card draw
+const getCard = async () => {
+  resetScore();
+  clearButtons();
+
+  try {
+    const res = await fetch('./cardDeck.json');
+    const data = await res.json();
+    cardData = data.cardDeck[getRandomCardIndex()];
+
+    correctCard = `${cardData.value} of ${cardData.suit}`;
+
+    // Reset card properties
+    redCard = ["hearts", "diamonds"].includes(cardData.suit);
+    blackCard = !redCard;
+
+    diamond = cardData.suit === "diamonds";
+    heart = cardData.suit === "hearts";
+    spade = cardData.suit === "spades";
+    club = cardData.suit === "clubs";
+
+    numberCard = !isNaN(Number(cardData.value));
+    faceCard = !numberCard;
+
+    // Render card back/front (simplified)
+    card.innerHTML = "";
+    const backFace = document.createElement("div");
+    backFace.className = "card-face back";
+    const backImg = document.createElement("img");
+    backImg.src = "./icons/card.png";
+    backImg.ariaValueText = correctCard;
+    backFace.appendChild(backImg);
+
+    const frontFace = document.createElement("div");
+    frontFace.className = "card-face front";
+    const frontImg = document.createElement("img");
+    frontImg.src = "./icons/item-0.png";
+    frontFace.appendChild(frontImg);
+
+    card.append(backFace, frontFace);
+    flipCard(card, { force: false });
+
+    // Start flow
+    displayColorButtons();
+
+  } catch (e) {
+    console.error(e);
   }
 }
 
-
-
-button.addEventListener("click", () => {
-  getCard();
-})
+// Start game
+button.addEventListener("click", getCard);
