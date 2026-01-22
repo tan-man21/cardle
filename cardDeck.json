@@ -1,209 +1,60 @@
-{ "cardDeck":[{
-    "suit": "hearts",
-    "value": 2
-  },
-  {
-    "suit": "hearts",
-    "value": 3
-  },
-  {
-    "suit": "hearts",
-    "value": 4
-  },
-  {
-    "suit": "hearts",
-    "value": 5
-  },
-  {
-    "suit": "hearts",
-    "value": 6
-  },
-  {
-    "suit": "hearts",
-    "value": 7
-  },
-  {
-    "suit": "hearts",
-    "value": 8
-  },
-  {
-    "suit": "hearts",
-    "value": 9
-  },
-  {
-    "suit": "hearts",
-    "value": 10
-  },
-  {
-    "suit": "hearts",
-    "value": "J"
-  },
-  {
-    "suit": "hearts",
-    "value": "Q"
-  },
-  {
-    "suit": "hearts",
-    "value": "K"
-  },
-  {
-    "suit": "hearts",
-    "value": "A"
-  },
-  {
-    "suit": "diamonds",
-    "value": 2
-  },
-  {
-    "suit": "diamonds",
-    "value": 3
-  },
-  {
-    "suit": "diamonds",
-    "value": 4
-  },
-  {
-    "suit": "diamonds",
-    "value": 5
-  },
-  {
-    "suit": "diamonds",
-    "value": 6
-  },
-  {
-    "suit": "diamonds",
-    "value": 7
-  },
-  {
-    "suit": "diamonds",
-    "value": 8
-  },
-  {
-    "suit": "diamonds",
-    "value": 9
-  },
-  {
-    "suit": "diamonds",
-    "value": 10
-  },
-  {
-    "suit": "diamonds",
-    "value": "J"
-  },
-  {
-    "suit": "diamonds",
-    "value": "Q"
-  },
-  {
-    "suit": "diamonds",
-    "value": "K"
-  },
-  {
-    "suit": "diamonds",
-    "value": "A"
-  },
-  {
-    "suit": "clubs",
-    "value": 2
-  },
-  {
-    "suit": "clubs",
-    "value": 3
-  },
-  {
-    "suit": "clubs",
-    "value": 4
-  },
-  {
-    "suit": "clubs",
-    "value": 5
-  },
-  {
-    "suit": "clubs",
-    "value": 6
-  },
-  {
-    "suit": "clubs",
-    "value": 7
-  },
-  {
-    "suit": "clubs",
-    "value": 8
-  },
-  {
-    "suit": "clubs",
-    "value": 9
-  },
-  {
-    "suit": "clubs",
-    "value": 10
-  },
-  {
-    "suit": "clubs",
-    "value": "J"
-  },
-  {
-    "suit": "clubs",
-    "value": "Q"
-  },
-  {
-    "suit": "clubs",
-    "value": "K"
-  },
-  {
-    "suit": "clubs",
-    "value": "A"
-  },
-  {
-    "suit": "spades",
-    "value": 2
-  },
-  {
-    "suit": "spades",
-    "value": 3
-  },
-  {
-    "suit": "spades",
-    "value": 4
-  },
-  {
-    "suit": "spades",
-    "value": 5
-  },
-  {
-    "suit": "spades",
-    "value": 6
-  },
-  {
-    "suit": "spades",
-    "value": 7
-  },
-  {
-    "suit": "spades",
-    "value": 8
-  },
-  {
-    "suit": "spades",
-    "value": 9
-  },
-  {
-    "suit": "spades",
-    "value": 10
-  },
-  {
-    "suit": "spades",
-    "value": "J"
-  },
-  {
-    "suit": "spades",
-    "value": "Q"
-  },
-  {
-    "suit": "spades",
-    "value": "K"
-  },
-  {
-    "suit": "spades",
-    "value": "A"
-  }]
+
+{
+  "cards": [
+    { "suit": "hearts", "value": 2, "image": "item-0" },
+    { "suit": "hearts", "value": 3, "image": "item-1" },
+    { "suit": "hearts", "value": 4, "image": "item-2" },
+    { "suit": "hearts", "value": 5, "image": "item-3" },
+    { "suit": "hearts", "value": 6, "image": "item-4" },
+    { "suit": "hearts", "value": 7, "image": "item-5" },
+    { "suit": "hearts", "value": 8, "image": "item-6" },
+    { "suit": "hearts", "value": 9, "image": "item-7" },
+    { "suit": "hearts", "value": 10, "image": "item-8" },
+    { "suit": "hearts", "value": "J", "image": "item-9" },
+    { "suit": "hearts", "value": "Q", "image": "item-10" },
+    { "suit": "hearts", "value": "K", "image": "item-11" },
+    { "suit": "hearts", "value": "A", "image": "item-12" },
+
+    { "suit": "diamonds", "value": 2, "image": "item-13" },
+    { "suit": "diamonds", "value": 3, "image": "item-14" },
+    { "suit": "diamonds", "value": 4, "image": "item-15" },
+    { "suit": "diamonds", "value": 5, "image": "item-16" },
+    { "suit": "diamonds", "value": 6, "image": "item-17" },
+    { "suit": "diamonds", "value": 7, "image": "item-18" },
+    { "suit": "diamonds", "value": 8, "image": "item-19" },
+    { "suit": "diamonds", "value": 9, "image": "item-20" },
+    { "suit": "diamonds", "value": 10, "image": "item-21" },
+    { "suit": "diamonds", "value": "J", "image": "item-22" },
+    { "suit": "diamonds", "value": "Q", "image": "item-23" },
+    { "suit": "diamonds", "value": "K", "image": "item-24" },
+    { "suit": "diamonds", "value": "A", "image": "item-25" },
+
+    { "suit": "clubs", "value": 2, "image": "item-26" },
+    { "suit": "clubs", "value": 3, "image": "item-27" },
+    { "suit": "clubs", "value": 4, "image": "item-28" },
+    { "suit": "clubs", "value": 5, "image": "item-29" },
+    { "suit": "clubs", "value": 6, "image": "item-30" },
+    { "suit": "clubs", "value": 7, "image": "item-31" },
+    { "suit": "clubs", "value": 8, "image": "item-32" },
+    { "suit": "clubs", "value": 9, "image": "item-33" },
+    { "suit": "clubs", "value": 10, "image": "item-34" },
+    { "suit": "clubs", "value": "J", "image": "item-35" },
+    { "suit": "clubs", "value": "Q", "image": "item-36" },
+    { "suit": "clubs", "value": "K", "image": "item-37" },
+    { "suit": "clubs", "value": "A", "image": "item-38" },
+
+    { "suit": "spades", "value": 2, "image": "item-39" },
+    { "suit": "spades", "value": 3, "image": "item-40" },
+    { "suit": "spades", "value": 4, "image": "item-41" },
+    { "suit": "spades", "value": 5, "image": "item-42" },
+    { "suit": "spades", "value": 6, "image": "item-43" },
+    { "suit": "spades", "value": 7, "image": "item-44" },
+    { "suit": "spades", "value": 8, "image": "item-45" },
+    { "suit": "spades", "value": 9, "image": "item-46" },
+    { "suit": "spades", "value": 10, "image": "item-47" },
+    { "suit": "spades", "value": "J", "image": "item-48" },
+    { "suit": "spades", "value": "Q", "image": "item-49" },
+    { "suit": "spades", "value": "K", "image": "item-50" },
+    { "suit": "spades", "value": "A", "image": "item-51" }
+  ]
 }

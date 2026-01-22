@@ -23,6 +23,7 @@ const higherValues = ["6", "7", "8", "9", "10"];
 
 // Score functions
 const addScore = () => { currentScore += 10; score.textContent = currentScore; }
+const winningScore = () => { currentScore += 100; score.textContent = currentScore; }
 const resetScore = () => { currentScore = 0; score.textContent = currentScore; }
 
 // Clear all button containers
@@ -36,11 +37,21 @@ function clearButtons() {
 
 // Flip card
 function flipCard(cardElement, { duration = 750, force = null } = {}) {
-  cardElement.style.transition = `transform ${duration}ms ease`;
-  if (force === true) cardElement.classList.add("flipped");
-  else if (force === false) cardElement.classList.remove("flipped");
-  else cardElement.classList.toggle("flipped");
-}
+    return new Promise((resolve) => {
+      cardElement.style.transition = `transform ${duration}ms ease`;
+  
+      if (force === true) {
+        cardElement.classList.add("flipped");
+      } else if (force === false) {
+        cardElement.classList.remove("flipped");
+      } else {
+        cardElement.classList.toggle("flipped");
+      }
+  
+      setTimeout(resolve, duration);
+    });
+  }
+  
 
 // Get random card index
 function getRandomCardIndex() {
@@ -64,7 +75,7 @@ function displayColorButtons() {
   colorBtns.style.display = "flex";
 }
 
-function handleColorChoice(isRed) {
+async function handleColorChoice(isRed) {
   if ((isRed && redCard) || (!isRed && blackCard)) {
     alert("Correct!");
     addScore();
@@ -73,7 +84,7 @@ function handleColorChoice(isRed) {
   } else {
     alert("Wrong!");
     resetScore();
-    flipCard(card, { force: true });
+    await flipCard(card, { force: true });
   }
 }
 
@@ -102,7 +113,7 @@ function displaySuitButtons() {
   suitBtns.style.display = "flex";
 }
 
-function handleSuitChoice(isCorrect) {
+async function handleSuitChoice(isCorrect) {
   if (isCorrect) {
     alert("Correct!");
     addScore();
@@ -111,7 +122,7 @@ function handleSuitChoice(isCorrect) {
   } else {
     alert("Wrong!");
     resetScore();
-    flipCard(card, { force: true });
+    await flipCard(card, { force: true });
   }
 }
 
@@ -126,11 +137,11 @@ function displayFaceNumButtons() {
     numberBtn.classList.add(redCard ? "red" : "black");
     faceBtn.classList.add(redCard ? "red" : "black");
   
-    numberBtn.addEventListener("click", () => {
+    numberBtn.addEventListener("click", async () => {
       if (!numberCard) {
         alert("Wrong!");
         resetScore();
-        flipCard(card, { force: true });
+        await flipCard(card, { force: true });
         return;
       }
   
@@ -140,11 +151,11 @@ function displayFaceNumButtons() {
       displayHigherLowerChoice();
     });
   
-    faceBtn.addEventListener("click", () => {
+    faceBtn.addEventListener("click", async () => {
       if (!faceCard) {
         alert("Wrong!");
         resetScore();
-        flipCard(card, { force: true });
+        await flipCard(card, { force: true });
         return;
       }
   
@@ -159,7 +170,7 @@ function displayFaceNumButtons() {
   }
   
 
-function handleFaceNumChoice(choseFace) {
+async function handleFaceNumChoice(choseFace) {
   if ((choseFace && faceCard) || (!choseFace && numberCard)) {
     alert("Correct!");
     addScore();
@@ -170,7 +181,7 @@ function handleFaceNumChoice(choseFace) {
   } else {
     alert("Wrong!");
     resetScore();
-    flipCard(card, { force: true });
+    await flipCard(card, { force: true });
   }
 }
 
@@ -224,7 +235,7 @@ function displayNumberBtns() {
 // ---------------------- DELEGATED LISTENERS ----------------------
 
 // Face buttons (ace, king, queen, jack)
-faceOrNumBtns.addEventListener("click", (e) => {
+faceOrNumBtns.addEventListener("click", async (e) => {
   const btn = e.target.closest("button");
   if (!btn || roundResolved) return;
 
@@ -241,7 +252,7 @@ faceOrNumBtns.addEventListener("click", (e) => {
     } else {
       alert("Wrong!");
       resetScore();
-      flipCard(card, { force: true });
+      await flipCard(card, { force: true });
       return;
     }
   }
@@ -255,11 +266,11 @@ faceOrNumBtns.addEventListener("click", (e) => {
 
     if (btn.dataset.value === correctFace) {
       alert("You Won!");
-      addScore();
+      winningScore();
     } else {
       alert("Wrong!");
       resetScore();
-      flipCard(card, { force: true });
+      await flipCard(card, { force: true });
     }
 
     faceOrNumBtns.style.display = "none";
@@ -267,18 +278,18 @@ faceOrNumBtns.addEventListener("click", (e) => {
 });
 
 // Higher/Lower number buttons (2-5 or 6-10)
-higherLowerBtns.addEventListener("click", (e) => {
+higherLowerBtns.addEventListener("click", async (e) => {
   const btn = e.target.closest("button");
   if (!btn || roundResolved) return;
 
   roundResolved = true;
   if (btn.dataset.value === String(cardData.value)) {
     alert("You Won!");
-    addScore();
+    winningScore();
   } else {
     alert("Wrong!");
     resetScore();
-    flipCard(card, { force: true });
+    await flipCard(card, { force: true });
   }
 
   higherLowerBtns.style.display = "none";
@@ -292,7 +303,7 @@ const getCard = async () => {
   try {
     const res = await fetch("./cardDeck.json");
     const data = await res.json();
-    cardData = data.cardDeck[getRandomCardIndex()];
+    cardData = data.cards[getRandomCardIndex()];
 
     // Normalize card value to string
     cardData.value = String(cardData.value);
@@ -323,7 +334,7 @@ const getCard = async () => {
     const frontFace = document.createElement("div");
     frontFace.className = "card-face front";
     const frontImg = document.createElement("img");
-    frontImg.src = "./icons/item-0.png";
+    frontImg.src = `./icons/${cardData.image}.png`;
     frontFace.appendChild(frontImg);
 
     card.append(backFace, frontFace);
@@ -337,4 +348,12 @@ const getCard = async () => {
 };
 
 // Start game
-button.addEventListener("click", getCard);
+button.addEventListener("click", async () => {
+    // if card is flipped, flip it back first
+    if (card.classList.contains("flipped")) {
+      await flipCard(card, { force: false }); // wait for it to unflip
+    }
+  
+    getCard();
+  });
+  
