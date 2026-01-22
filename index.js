@@ -1,9 +1,12 @@
+import { createButton } from "./functions.js";
+
 const card = document.querySelector('.card')
 const score = document.querySelector('.score')
 const button = document.querySelector('#drawCard')
 const colorBtns = document.querySelector('.colorBtns')
 const suitBtns = document.querySelector('.suitBtns')
 const faceNumBtns = document.querySelector('.faceNumBtns')
+const faceOrNumBtns = document.querySelector('.faceOrNumBtns')
 
 let redCard;
 let blackCard;
@@ -12,6 +15,9 @@ let heart = false;
 let spade= false;
 let club = false;
 let currentScore = 0;
+let higher = false;
+let lower = false;
+let roundResolved = false;
 
 //add score function
 const addScore = () => {
@@ -24,19 +30,20 @@ const resetScore = () => {
   score.textContent = currentScore
 }
 
-function createButton(text) {
-    const btn = document.createElement("button");
-    btn.classList.add("button", "fade-in");    
-    btn.textContent = text;
+// function createButton(text) {
+//     const btn = document.createElement("button");
+//     btn.classList.add("button", "fade-in");    
+//     btn.textContent = text;
 
-    return btn;
-  }
+//     return btn;
+//   }
 
   function clearButtons() {
     // Clear button containers
     colorBtns.innerHTML = "";
     suitBtns.innerHTML = "";
     faceNumBtns.innerHTML = "";
+    faceOrNumBtns.innerHTML = "";
 }
 
 function getRandomCardIndex() {
@@ -100,6 +107,7 @@ const getCard = async () => {
 
     const backImg = document.createElement("img");
     backImg.src = "./icons/card.png";
+    backImg.ariaValueText = `${cardData.value} of ${cardData.suit}`
     backFace.appendChild(backImg);
 
     const frontFace = document.createElement("div");
@@ -139,6 +147,14 @@ const getCard = async () => {
         club = true;
         break;
     }
+
+    if(cardData.value <= 5) {
+      lower = true;
+    } else {
+      higher = true;
+    }
+
+    const correctCard = `${cardData.value} of ${cardData.suit}`
     
     // Determine face or number
     let numberCard = !isNaN(Number(cardData.value));
@@ -149,6 +165,16 @@ const getCard = async () => {
     //colorBtns.innerHTML = "";
     //suitBtns.innerHTML = "";
     //faceNumBtns.innerHTML = "";
+
+    //Face Values
+    const faceValues = ["ace", "king", "queen", "jack"]
+    
+
+    //Create higher or lower buttons
+    const higherBtn = createButton('6 or higher');
+    higherBtn.classList.add(redCard ? "red" : "black", "fade-in");
+    const lowerBtn = createButton('5 or lower');
+    lowerBtn.classList.add(redCard ? "red" : "black", "fade-in");
     
     //Create face or number buttons
     const numberBtn = createButton('number');
@@ -240,6 +266,22 @@ const displayFNBtns = () => {
   faceNumBtns.appendChild(numberBtn)
   faceNumBtns.appendChild(faceBtn)
 }
+
+const displayFaceBtns = () => {
+  faceOrNumBtns.innerHTML = "";
+
+  for (let i = 0; i < faceValues.length; i++) {
+    const faceCardBtn = createButton(faceValues[i]);
+    faceCardBtn.classList.add(redCard ? "red" : "black", faceValues[i], "fade-in");
+    faceOrNumBtns.appendChild(faceCardBtn)
+  }
+}
+
+const displayNumberBtns = () => {
+  faceOrNumBtns.innerHTML = "";
+  faceOrNumBtns.appendChild(higherBtn)
+  faceOrNumBtns.appendChild(lowerBtn)
+}
     
     // Suit button listeners
     diamondSuit.addEventListener("click", () => {           if(diamond) { 
@@ -325,6 +367,10 @@ const displayFNBtns = () => {
         alert("Correct!");
         
         addScore();
+
+        faceNumBtns.style.display = "none";
+
+        displayNumberBtns();
       } else {
         alert("Wrong!");
         
@@ -339,6 +385,10 @@ faceBtn.addEventListener("click", () => {
         alert("Correct!");
         
         addScore();
+
+        faceNumBtns.style.display = "none";
+
+        displayFaceBtns();
       } else {
         alert("Wrong!");
         
@@ -347,6 +397,63 @@ faceBtn.addEventListener("click", () => {
         flipCard(card, { force: true });
       }
 });
+
+higherBtn.addEventListener("click", () => {
+  if(higher){ 
+        alert("Correct!");
+        
+        addScore();
+
+        faceOrNumBtns.style.display = "none";
+      } else {
+        alert("Wrong!");
+        
+        resetScore();
+
+        flipCard(card, { force: true });
+      }
+});
+
+lowerBtn.addEventListener("click", () => {
+  if(lower){ 
+        alert("Correct!");
+        
+        addScore();
+
+        faceOrNumBtns.style.display = "none";
+      } else {
+        alert("Wrong!");
+        
+        resetScore();
+
+        flipCard(card, { force: true });
+      }
+});
+
+faceOrNumBtns.addEventListener("click", (e) => {
+  if (roundResolved) return;   // 🔒 stop second execution
+  roundResolved = true;
+
+  const btn = e.target.closest("button");
+  if (!btn) return;
+
+  const faceMap = {
+    A: "ace",
+    K: "king",
+    Q: "queen",
+    J: "jack",
+  };
+
+  const correctFace = faceMap[correctCard[0]];
+
+  if (btn.dataset.value === correctFace) {
+    alert("You Won!");
+  } else {
+    alert("Wrong!");
+    flipCard(card, { force: true });
+  }
+});
+
 
     
   } catch(e) {
