@@ -1,13 +1,21 @@
 .title {
     border: 2px solid black;
     border-radius: 5px;
-    width: 70%;
     margin: auto;
+    width: 50%;
     text-align: left;
     display: flex;
     justify-content: space-between;
     gap: 20px;
     padding: 0px 5px;
+  }
+  @media screen and (max-width: 600px) {
+    .title {
+      width: 70%;
+    }
+    .card-container {
+      min-height: 10vh!important;
+    }
   }
 
   h1 {
