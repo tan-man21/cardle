@@ -69,7 +69,9 @@
   
   .colorBtns,
   .suitBtns,
-  .faceNumBtns{
+  .faceNumBtns,
+  .faceOrNumBtns,
+  .higherLowerBtns {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
