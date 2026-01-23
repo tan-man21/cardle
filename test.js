@@ -34,6 +34,8 @@ function clearButtons() {
   faceOrNumBtns.innerHTML = "";
   higherLowerBtns.innerHTML = "";
 }
+  
+  
 
 // Flip card
 function flipCard(cardElement, { duration = 750, force = null } = {}) {
@@ -77,13 +79,14 @@ function displayColorButtons() {
 
 async function handleColorChoice(isRed) {
   if ((isRed && redCard) || (!isRed && blackCard)) {
-    alert("Correct!");
+    // alert("Correct!");
     addScore();
     colorBtns.style.display = "none";
     displaySuitButtons();
   } else {
-    alert("Wrong!");
+    // alert("Wrong!");
     resetScore();
+    clearButtons();
     await flipCard(card, { force: true });
   }
 }
@@ -115,13 +118,14 @@ function displaySuitButtons() {
 
 async function handleSuitChoice(isCorrect) {
   if (isCorrect) {
-    alert("Correct!");
+    // alert("Correct!");
     addScore();
     suitBtns.style.display = "none";
     displayFaceNumButtons();
   } else {
-    alert("Wrong!");
+    // alert("Wrong!");
     resetScore();
+    clearButtons();
     await flipCard(card, { force: true });
   }
 }
@@ -139,13 +143,14 @@ function displayFaceNumButtons() {
   
     numberBtn.addEventListener("click", async () => {
       if (!numberCard) {
-        alert("Wrong!");
+        // alert("Wrong!");
         resetScore();
+        clearButtons();
         await flipCard(card, { force: true });
         return;
       }
   
-      alert("Correct!");
+    //   alert("Correct!");
       addScore();
       faceNumBtns.style.display = "none";
       displayHigherLowerChoice();
@@ -153,13 +158,14 @@ function displayFaceNumButtons() {
   
     faceBtn.addEventListener("click", async () => {
       if (!faceCard) {
-        alert("Wrong!");
+        // alert("Wrong!");
         resetScore();
+        clearButtons();
         await flipCard(card, { force: true });
         return;
       }
   
-      alert("Correct!");
+    //   alert("Correct!");
       addScore();
       faceNumBtns.style.display = "none";
       displayFaceButtons();
@@ -172,15 +178,16 @@ function displayFaceNumButtons() {
 
 async function handleFaceNumChoice(choseFace) {
   if ((choseFace && faceCard) || (!choseFace && numberCard)) {
-    alert("Correct!");
+    // alert("Correct!");
     addScore();
     faceNumBtns.style.display = "none";
 
     if (faceCard) displayFaceButtons();
     else displayHigherLowerChoice(); // show 5 or lower / 6 or higher
   } else {
-    alert("Wrong!");
+    // alert("Wrong!");
     resetScore();
+    clearButtons();
     await flipCard(card, { force: true });
   }
 }
@@ -244,14 +251,15 @@ faceOrNumBtns.addEventListener("click", async (e) => {
     roundResolved = true;
 
     if (btn.dataset.correct === "true") {
-      alert("Correct!");
+    //   alert("Correct!");
       addScore();
       faceOrNumBtns.style.display = "none";
       displayNumberBtns();
       return;
     } else {
-      alert("Wrong!");
+    //   alert("Wrong!");
       resetScore();
+      clearButtons();
       await flipCard(card, { force: true });
       return;
     }
@@ -265,11 +273,12 @@ faceOrNumBtns.addEventListener("click", async (e) => {
     const correctFace = faceMap[correctCard[0]];
 
     if (btn.dataset.value === correctFace) {
-      alert("You Won!");
+    //   alert("You Won!");
       winningScore();
     } else {
-      alert("Wrong!");
+    //   alert("Wrong!");
       resetScore();
+      clearButtons();
       await flipCard(card, { force: true });
     }
 
@@ -284,10 +293,10 @@ higherLowerBtns.addEventListener("click", async (e) => {
 
   roundResolved = true;
   if (btn.dataset.value === String(cardData.value)) {
-    alert("You Won!");
+    // alert("You Won!");
     winningScore();
   } else {
-    alert("Wrong!");
+    // alert("Wrong!");
     resetScore();
     await flipCard(card, { force: true });
   }
