@@ -1,4 +1,5 @@
 import { createButton } from "./functions.js";
+import { progressBar } from "./functions.js";
 
 const card = document.querySelector('.card');
 const score = document.querySelector('.score');
@@ -8,6 +9,7 @@ const suitBtns = document.querySelector('.suitBtns');
 const faceNumBtns = document.querySelector('.faceNumBtns');
 const faceOrNumBtns = document.querySelector('.faceOrNumBtns');
 const higherLowerBtns = document.querySelector('.higherLowerBtns');
+// const progressBar = document.querySelector('.check-bar-container');
 
 let redCard, blackCard;
 let diamond, heart, spade, club;
@@ -34,6 +36,10 @@ function clearButtons() {
   faceOrNumBtns.innerHTML = "";
   higherLowerBtns.innerHTML = "";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    progressBar(0);
+  });
   
   
 
@@ -80,12 +86,13 @@ function displayColorButtons() {
 async function handleColorChoice(isRed) {
   if ((isRed && redCard) || (!isRed && blackCard)) {
     // alert("Correct!");
-    addScore();
+    // addScore();
+    progressBar(20);
     colorBtns.style.display = "none";
     displaySuitButtons();
   } else {
     // alert("Wrong!");
-    resetScore();
+    // resetScore();
     clearButtons();
     await flipCard(card, { force: true });
   }
@@ -119,12 +126,14 @@ function displaySuitButtons() {
 async function handleSuitChoice(isCorrect) {
   if (isCorrect) {
     // alert("Correct!");
-    addScore();
+    // addScore();
+    progressBar(40);
     suitBtns.style.display = "none";
     displayFaceNumButtons();
   } else {
     // alert("Wrong!");
-    resetScore();
+    // resetScore();
+    progressBar(0);
     clearButtons();
     await flipCard(card, { force: true });
   }
@@ -144,14 +153,16 @@ function displayFaceNumButtons() {
     numberBtn.addEventListener("click", async () => {
       if (!numberCard) {
         // alert("Wrong!");
-        resetScore();
+        // resetScore();
+        progressBar(0);
         clearButtons();
         await flipCard(card, { force: true });
         return;
       }
   
     //   alert("Correct!");
-      addScore();
+    //   addScore();
+    progressBar(60);
       faceNumBtns.style.display = "none";
       displayHigherLowerChoice();
     });
@@ -159,14 +170,16 @@ function displayFaceNumButtons() {
     faceBtn.addEventListener("click", async () => {
       if (!faceCard) {
         // alert("Wrong!");
-        resetScore();
+        // resetScore();
+        progressBar(0);
         clearButtons();
         await flipCard(card, { force: true });
         return;
       }
   
     //   alert("Correct!");
-      addScore();
+    //   addScore();
+    progressBar(80);
       faceNumBtns.style.display = "none";
       displayFaceButtons();
     });
@@ -252,13 +265,15 @@ faceOrNumBtns.addEventListener("click", async (e) => {
 
     if (btn.dataset.correct === "true") {
     //   alert("Correct!");
-      addScore();
+    //   addScore();
+    progressBar(80);
       faceOrNumBtns.style.display = "none";
       displayNumberBtns();
       return;
     } else {
     //   alert("Wrong!");
-      resetScore();
+    //   resetScore();
+    progressBar(0);
       clearButtons();
       await flipCard(card, { force: true });
       return;
@@ -274,10 +289,12 @@ faceOrNumBtns.addEventListener("click", async (e) => {
 
     if (btn.dataset.value === correctFace) {
     //   alert("You Won!");
-      winningScore();
+    //   winningScore();
+    progressBar(100);
     } else {
     //   alert("Wrong!");
-      resetScore();
+    //   resetScore();
+    progressBar(0);
       clearButtons();
       await flipCard(card, { force: true });
     }
@@ -294,10 +311,12 @@ higherLowerBtns.addEventListener("click", async (e) => {
   roundResolved = true;
   if (btn.dataset.value === String(cardData.value)) {
     // alert("You Won!");
-    winningScore();
+    // winningScore();
+    progressBar(100);
   } else {
     // alert("Wrong!");
-    resetScore();
+    // resetScore();
+    progressBar(0);
     await flipCard(card, { force: true });
   }
 
@@ -306,7 +325,7 @@ higherLowerBtns.addEventListener("click", async (e) => {
 
 // ---------------------- DRAW CARD ----------------------
 const getCard = async () => {
-  resetScore();
+//   resetScore();
   clearButtons();
 
   try {
@@ -330,6 +349,8 @@ const getCard = async () => {
 
     numberCard = !isNaN(Number(cardData.value));
     faceCard = !numberCard;
+
+    progressBar(0);
 
     // Render card back/front
     card.innerHTML = "";
