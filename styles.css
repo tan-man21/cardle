@@ -449,12 +449,17 @@ button:active {
   font-weight: 100;
 }
 
-.geartiptext p {
+.geartiptext p, a {
   text-align: left;
-  list-style-type: none;
+  color: #fff;
+  list-style: none;
   padding: 1vh 0vh!important;
   margin: 0!important;
   padding-inline-start: 0px!important;
+}
+.geartiptext a {
+  position: relative;
+  right: 5px;
 }
 
 .geartip:hover .geartiptext {
