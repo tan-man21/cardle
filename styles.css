@@ -27,6 +27,18 @@
     .styled-wrapper .button {
       scale: 75%;
     }
+    .colorBtns,
+    .suitBtns,
+    .faceNumBtns,
+    .higherLowerBtns,
+    .faceOrNumBtns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    position: relative;
+    bottom: 5vh;
+  }
   }
 
   h1 {
@@ -95,17 +107,11 @@
   .colorBtns,
   .suitBtns,
   .faceNumBtns,
-  .higherLowerBtns {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-
+  .higherLowerBtns,
   .faceOrNumBtns {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap!important;
+    flex-wrap: wrap;
     gap: 5px;
   }
 
