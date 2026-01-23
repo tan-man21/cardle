@@ -99,12 +99,6 @@
   .higherLowerBtns {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .faceOrNumBtns {
-    display: flex;
-    justify-content: center;
     gap: 20px;
   }
 
