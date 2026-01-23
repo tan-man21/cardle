@@ -95,10 +95,17 @@
   .colorBtns,
   .suitBtns,
   .faceNumBtns,
-  .faceOrNumBtns,
   .higherLowerBtns {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .faceOrNumBtns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap!important;
     gap: 20px;
   }
 
