@@ -102,6 +102,11 @@
     flex-wrap: wrap;
     gap: 20px;
   }
+  .faceOrNumBtns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
 
   /* From Uiverse.io by adamgiebl */ 
 button {
