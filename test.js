@@ -10,6 +10,7 @@ const faceNumBtns = document.querySelector('.faceNumBtns');
 const faceOrNumBtns = document.querySelector('.faceOrNumBtns');
 const higherLowerBtns = document.querySelector('.higherLowerBtns');
 // const progressBar = document.querySelector('.check-bar-container');
+const gameSubtitle = document.querySelector('.gameSubtitle');
 
 let redCard, blackCard;
 let diamond, heart, spade, club;
@@ -28,6 +29,12 @@ const addScore = () => { currentScore += 10; score.textContent = currentScore; }
 const winningScore = () => { currentScore += 100; score.textContent = currentScore; }
 const resetScore = () => { currentScore = 0; score.textContent = currentScore; }
 
+function generateSubtitle (sub) {
+    gameSubtitle.innerHTML = "";   
+    gameSubtitle.textContent = `${sub}`;
+    // gameSubtitle.appendChild();
+}
+
 // Clear all button containers
 function clearButtons() {
   colorBtns.innerHTML = "";
@@ -39,6 +46,9 @@ function clearButtons() {
 
 document.addEventListener("DOMContentLoaded", () => {
     progressBar(0);
+    getCard();
+
+    generateSubtitle("Guess the Card");
   });
   
   
@@ -291,6 +301,9 @@ faceOrNumBtns.addEventListener("click", async (e) => {
     //   alert("You Won!");
     //   winningScore();
     progressBar(100);
+    generateSubtitle(`${correctCard}`);
+    generateSubtitle(`${correctCard}`);
+    await flipCard(card, { force: true });
     } else {
     //   alert("Wrong!");
     //   resetScore();
@@ -313,6 +326,8 @@ higherLowerBtns.addEventListener("click", async (e) => {
     // alert("You Won!");
     // winningScore();
     progressBar(100);
+    generateSubtitle(`${correctCard}`);
+    await flipCard(card, { force: true });
   } else {
     // alert("Wrong!");
     // resetScore();
@@ -383,6 +398,8 @@ button.addEventListener("click", async () => {
     if (card.classList.contains("flipped")) {
       await flipCard(card, { force: false }); // wait for it to unflip
     }
+
+    generateSubtitle("Guess the Card");
   
     getCard();
   });
