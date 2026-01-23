@@ -212,6 +212,20 @@ function displayFaceNumButtons() {
     faceNumBtns.style.display = "flex";
   }
   
+  // ---------------------- FACE BUTTONS ----------------------
+function displayFaceButtons() {
+    faceOrNumBtns.innerHTML = "";
+    roundResolved = false;
+  
+    faceValues.forEach(face => {
+      const btn = createButton(face);
+      btn.classList.add(redCard ? "red" : "black", "fade-in");
+      btn.dataset.value = face;
+      faceOrNumBtns.appendChild(btn);
+    });
+  
+    faceOrNumBtns.style.display = "flex";
+  }
 
 async function handleFaceNumChoice(choseFace) {
   if ((choseFace && faceCard) || (!choseFace && numberCard)) {
@@ -227,19 +241,6 @@ async function handleFaceNumChoice(choseFace) {
     clearButtons();
     await flipCard(card, { force: true });
   }
-}
-
-// ---------------------- FACE BUTTONS ----------------------
-function displayFaceButtons() {
-  faceOrNumBtns.innerHTML = "";
-  roundResolved = false;
-
-  faceValues.forEach(face => {
-    const btn = createButton(face);
-    btn.classList.add(redCard ? "red" : "black", "fade-in");
-    btn.dataset.value = face;
-    faceOrNumBtns.appendChild(btn);
-  });
 }
 
 // ---------------------- NUMBER CARD: HIGHER/LOWER ----------------------
