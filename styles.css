@@ -99,14 +99,14 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 5px;
   }
 
   .faceOrNumBtns {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap!important;
-    gap: 20px;
+    gap: 5px;
   }
 
   /* From Uiverse.io by adamgiebl */ 
