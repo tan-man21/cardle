@@ -408,7 +408,13 @@ button:active {
   padding-inline-start: 0px!important;
 }
 
-.tooltip:hover .tooltiptext {
+/* .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+} */
+
+.tooltip.active .tooltiptext,
+.geartip.active .geartiptext {
   visibility: visible;
   opacity: 1;
 }
@@ -462,10 +468,10 @@ button:active {
   right: 5px;
 }
 
-.geartip:hover .geartiptext {
+/* .geartip:hover .geartiptext {
   visibility: visible;
   opacity: 1;
-}
+} */
 
 .geartiptext {
   visibility: hidden;

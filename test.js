@@ -35,6 +35,20 @@ function generateSubtitle (sub) {
     // gameSubtitle.appendChild();
 }
 
+document.addEventListener("click", (e) => {
+    const tooltip = e.target.closest(".tooltip, .geartip");
+  
+    // Close all tooltips first
+    document.querySelectorAll(".tooltip.active, .geartip.active")
+      .forEach(el => el.classList.remove("active"));
+  
+    // If clicking an icon, toggle it
+    if (tooltip) {
+      tooltip.classList.toggle("active");
+      e.stopPropagation();
+    }
+  });
+
 // Clear all button containers
 function clearButtons() {
   colorBtns.innerHTML = "";
