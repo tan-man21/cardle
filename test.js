@@ -66,6 +66,13 @@ document.addEventListener("click", (e) => {
     }
   });
 
+  const boxContainer = document.querySelector('body');
+  const uiSlider = document.querySelector('.slider');
+
+  uiSlider.addEventListener('click', () => {
+    boxContainer.classList.toggle('dark-mode');
+  })
+
 // Clear all button containers
 function clearButtons() {
   colorBtns.innerHTML = "";
