@@ -313,7 +313,6 @@ button:active {
   color: black;
   text-align: center;
   box-shadow: 0 -3px 2px -3px rgba(0, 0, 0, 0.2);
-  padding: 2vh 0;
 }
 
 /* From Uiverse.io by musashi-13 */ 
@@ -653,4 +652,16 @@ button:active {
 .dark-mode .black {
   background-color: #191919;
   color: #fff;
+}
+
+.footer-icons {
+  font-size: 50px;
+}
+
+.redAce {
+  color: #eb2f2f;
+}
+
+.blackAce {
+  color: #191919;
 }
