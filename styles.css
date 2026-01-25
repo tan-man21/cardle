@@ -316,6 +316,10 @@ button:active {
   color: black;
   text-align: center;
   box-shadow: 0 -3px 2px -3px rgba(0, 0, 0, 0.2);
+  padding: 2vh 0vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* From Uiverse.io by musashi-13 */ 
@@ -658,13 +662,5 @@ button:active {
 }
 
 .footer-icons {
-  font-size: 50px;
-}
-
-.redAce {
-  color: #eb2f2f;
-}
-
-.blackAce {
-  color: #191919;
+  font-size: 20px;
 }
