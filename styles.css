@@ -37,6 +37,9 @@
     flex-wrap: wrap;
     gap: 5px;
     position: relative;
+    bottom: 7vh;
+  }
+  .card-face {
     bottom: 5vh;
   }
   }
