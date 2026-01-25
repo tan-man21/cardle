@@ -49,6 +49,23 @@ document.addEventListener("click", (e) => {
     }
   });
 
+  const shareData = {
+    title: "Share",
+    text: "Can you guess the card?",
+    url: "https://cardle-game.netlify.app/",
+  };
+  
+  const btn = document.querySelector(".share");
+  
+  // Share must be triggered by "user activation"
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
 // Clear all button containers
 function clearButtons() {
   colorBtns.innerHTML = "";
